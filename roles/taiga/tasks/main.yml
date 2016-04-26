@@ -20,7 +20,7 @@
   become: yes
 
 - name: Clone install script
-  git: repo=https://github.com/taigaio/taiga-scripts.git dest=~/taiga-scripts accept_hostkey=yes version={{ branch }} recursive=no
+  git: repo=https://github.com/taigaio/taiga-scripts.git dest=~/taiga-scripts accept_hostkey=yes recursive=no
   become_user: taiga
 
 - name: Run setup-server script
