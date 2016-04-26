@@ -2,5 +2,5 @@
 1. Install Ansible [Install Ansible](http://docs.ansible.com/ansible/intro_installation.html)
 2. Create user taiga
 3. Clone repository
-4. Run playbook scipt
+4. Run playbook script
 `ansible-playbook install.yml -K`
