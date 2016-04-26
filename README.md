@@ -1,8 +1,8 @@
 # Ansible role for install Taiga.io project
 1. Install Ansible [Install Ansible](http://docs.ansible.com/ansible/intro_installation.html)
 2. Create user taiga
-3. Clone repository
-4. Run playbook script
+3. Clone repository from user taiga
+4. Run playbook script from user taiga
 `ansible-playbook install.yml -e 'domain=taiga.local' -K`
 5. Login Taiga with:
  * Login:`admin`
