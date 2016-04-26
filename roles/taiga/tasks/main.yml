@@ -23,7 +23,6 @@
   git: repo=https://github.com/taigaio/taiga-scripts.git dest=~/taiga-scripts accept_hostkey=yes recursive=no
   become: yes
   become_user: taiga
-  become_method: su
 
 - name: Run setup-server script
   shell: bash ~/taiga-scripts/setup-server.sh
@@ -53,7 +52,6 @@
     mode: 0664
   become: yes
   become_user: taiga
-  become_method: su
 
 - name: Put taiga-front config
   template:
@@ -64,7 +62,6 @@
     mode: 0664
   become: yes
   become_user: taiga
-  become_method: su
 
 - name: Put circus config
   template:
@@ -75,7 +72,6 @@
     mode: 0664
   become: yes
   become_user: taiga
-  become_method: su
 
 - name: Restart circus
   service: name=circus state=restarted
