@@ -19,8 +19,7 @@
   git: repo=https://github.com/taigaio/taiga-scripts.git dest=/home/taiga/taiga-scripts accept_hostkey=yes recursive=no
 
 - name: Run setup-server script
-  shell: sudo bash /home/taiga/taiga-scripts/setup-server.sh
-  become: yes
+  shell: bash /home/taiga/taiga-scripts/setup-server.sh
 
 - name: Put nginx config
   template:
