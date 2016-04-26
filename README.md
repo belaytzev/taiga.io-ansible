@@ -4,3 +4,6 @@
 3. Clone repository
 4. Run playbook script
 `ansible-playbook install.yml -e 'domain=taiga.local' -K`
+5. Login Taiga with:
+    Login:`admin`
+    Password:`123123`
