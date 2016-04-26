@@ -1,0 +1,22 @@
+from .common import *
+
+MEDIA_URL = "/media/"
+STATIC_URL = "http://{{ domain }}/static/"
+
+# This should change if you want generate urls in emails
+# for external dns.
+SITES["front"]["domain"] = "{{ domain }}"
+SITES["api"]["domain"] = "{{ domain }}"
+
+DEBUG = False
+PUBLIC_REGISTER_ENABLED = False
+
+DEFAULT_FROM_EMAIL = "user@yandex.ru"
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_SSL = True
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_HOST_USER = "user@yandex.ru"
+EMAIL_HOST_PASSWORD = "passwd"
+EMAIL_PORT = 465

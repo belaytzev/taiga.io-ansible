@@ -1,0 +1,72 @@
+---
+- name: Create user taiga
+  user: name=taiga password=taiga
+  become: yes
+
+- name: Copy sudoers file for safety
+  command: cp -f /etc/sudoers /etc/sudoers.tmp
+  become: yes
+
+- name: Create sudoers file backup
+  command: cp -f /etc/sudoers /etc/sudoers.bak
+  become: yes
+
+- name: Add Jenkins user sudo permission
+  lineinfile: dest=/etc/sudoers.tmp state=present regexp='^taiga' line='taiga ALL=(ALL) NOPASSWD:ALL'
+  become: yes
+
+- name: Final sudoers file check
+  shell: visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers
+  become: yes
+
+- name: Clone install script
+  git: repo=https://github.com/taigaio/taiga-scripts.git dest=~/taiga-scripts accept_hostkey=yes version={{ branch }} recursive=no
+  become_user: taiga
+
+- name: Run setup-server script
+  shell: bash ~/taiga-scripts/setup-server.sh
+  become_user: taiga
+
+- name: Put nginx config
+  template:
+    src: nginx.j2
+    dest: /etc/nginx/sites-enabled/taiga
+    owner: root
+    group: root
+    mode: 0644
+  become: yes
+
+- name: Reload Nginx
+  service: name=nginx state=reloaded
+  become: yes
+
+- name: Put taiga-back config
+  template:
+    src: taiga-back.j2
+    dest: /home/taiga/taiga-back/settings/local.py
+    owner: taiga
+    group: taiga
+    mode: 0664
+  become_user: taiga
+
+- name: Put taiga-front config
+  template:
+    src: taiga-front.j2
+    dest: /home/taiga/taiga-front/dist/conf.json
+    owner: taiga
+    group: taiga
+    mode: 0664
+  become_user: taiga
+
+- name: Put circus config
+  template:
+    src: circus.j2
+    dest: /home/taiga/conf/circus.ini
+    owner: taiga
+    group: taiga
+    mode: 0664
+  become_user: taiga
+
+- name: Restart circus
+  service: name=circus state=restarted
+  become: yes
