@@ -44,15 +44,14 @@
   become: yes
 
 - name: Clone install script
-  git: repo=https://github.com/taigaio/taiga-scripts.git dest=~/taiga-scripts accept_hostkey=yes recursive=no
+  git: repo=https://github.com/taigaio/taiga-scripts.git dest=/home/taiga/taiga-scripts accept_hostkey=yes recursive=no
   become: yes
-  become_user: taiga
+  become_user: taigak
 
 - name: Run setup-server script
   shell: bash ~/taiga-scripts/setup-server.sh
   become: yes
   become_user: taiga
-  become_method: su
 
 - name: Put nginx config
   template:
