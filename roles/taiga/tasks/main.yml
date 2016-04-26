@@ -1,7 +1,31 @@
 ---
+- name: whoami
+  shell: whoami
+  register: current_user
+
+- name: Copy sudoers file for safety
+  command: cp -f /etc/sudoers /etc/sudoers.tmp
+  become: yes
+
+- name: Create sudoers file backup
+  command: cp -f /etc/sudoers /etc/sudoers.bak
+  become: yes
+
+- name: Add Jenkins user sudo permission
+  lineinfile: dest=/etc/sudoers.tmp state=present regexp='^{{ current_user.stdout }}' line='{{ current_user.stdout }} ALL=(ALL) NOPASSWD:ALL'
+  become: yes
+
+- name: Final sudoers file check
+  shell: visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers
+  become: yes
+
+
 - name: Create user taiga
   user: name=taiga password=taiga
   become: yes
+
+- name: Tmp permissions
+  shell: sudo chmod -R 777 /tmp
 
 - name: Copy sudoers file for safety
   command: cp -f /etc/sudoers /etc/sudoers.tmp
