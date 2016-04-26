@@ -46,7 +46,7 @@
 - name: Clone install script
   git: repo=https://github.com/taigaio/taiga-scripts.git dest=/home/taiga/taiga-scripts accept_hostkey=yes recursive=no
   become: yes
-  become_user: taigak
+  become_user: taiga
 
 - name: Run setup-server script
   shell: bash /home/taiga/taiga-scripts/setup-server.sh
