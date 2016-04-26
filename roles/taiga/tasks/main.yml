@@ -52,6 +52,7 @@
   shell: sudo bash /home/taiga/taiga-scripts/setup-server.sh
   become: yes
   become_user: taiga
+  become_method: su
 
 - name: Put nginx config
   template:
