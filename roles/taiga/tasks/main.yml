@@ -21,10 +21,12 @@
 
 - name: Clone install script
   git: repo=https://github.com/taigaio/taiga-scripts.git dest=~/taiga-scripts accept_hostkey=yes recursive=no
+  become: yes
   become_user: taiga
 
 - name: Run setup-server script
   shell: bash ~/taiga-scripts/setup-server.sh
+  become: yes
   become_user: taiga
 
 - name: Put nginx config
@@ -47,6 +49,7 @@
     owner: taiga
     group: taiga
     mode: 0664
+  become: yes
   become_user: taiga
 
 - name: Put taiga-front config
@@ -56,6 +59,7 @@
     owner: taiga
     group: taiga
     mode: 0664
+  become: yes
   become_user: taiga
 
 - name: Put circus config
@@ -65,6 +69,7 @@
     owner: taiga
     group: taiga
     mode: 0664
+  become: yes
   become_user: taiga
 
 - name: Restart circus
