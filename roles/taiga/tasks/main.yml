@@ -49,7 +49,7 @@
   become_user: taiga
 
 - name: Run setup-server script
-  shell: bash /home/taiga/taiga-scripts/setup-server.sh
+  shell: sudo bash /home/taiga/taiga-scripts/setup-server.sh
   become: yes
   become_user: taiga
 
