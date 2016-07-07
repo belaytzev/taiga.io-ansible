@@ -7,7 +7,7 @@
   command: cp -f /etc/sudoers /etc/sudoers.bak
   become: yes
 
-- name: Add Jenkins user sudo permission
+- name: Add taiga user sudo permission
   lineinfile: dest=/etc/sudoers.tmp state=present regexp='^taiga' line='taiga ALL=(ALL) NOPASSWD:ALL'
   become: yes
 
